@@ -100,9 +100,16 @@
 
 ● Quante prenotazioni ha fatto l'ospite che ha fatto più prenotazioni? (quante, non chi!) :
 
-    SELECT prenotazioni_has_ospiti.ospite_id, COUNT(prenotazioni_has_ospiti.prenotazione_id)
-    FROM prenotazioni_has_ospiti
-    GROUP BY prenotazioni_has_ospiti.ospite_id
-    ORDER BY COUNT(prenotazioni_has_ospiti.prenotazione_id) DESC
+    SELECT MAX(tr.count_prenotazioni) AS 'numero_massimo_prenotazioni' 
+    FROM 
+    ( 
+        SELECT COUNT(prenotazioni_has_ospiti.prenotazione_id) 
+        AS 'count_prenotazioni' 
+        FROM prenotazioni_has_ospiti 
+        GROUP BY prenotazioni_has_ospiti.ospite_id 
+    )tr
+
+
+    
 
 
